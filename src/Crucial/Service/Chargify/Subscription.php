@@ -396,8 +396,8 @@ class Subscription extends AbstractEntity
      */
     public function read($subscriptionId)
     {
-        $service       = $this->getService();
-        $response      = $service->request('subscriptions/' . (int)$subscriptionId, 'GET');
+        $service = $this->getService();
+        $response = $service->request('subscriptions/' . (int)$subscriptionId, 'GET');
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -426,9 +426,9 @@ class Subscription extends AbstractEntity
      */
     public function create()
     {
-        $service       = $this->getService();
-        $rawData       = $this->getRawData(array('subscription' => $this->_params));
-        $response      = $service->request('subscriptions', 'POST', $rawData);
+        $service = $this->getService();
+        $rawData = $this->getRawData(array('subscription' => $this->_params));
+        $response = $service->request('subscriptions', 'POST', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -450,9 +450,12 @@ class Subscription extends AbstractEntity
      */
     public function cancelImmediately($id)
     {
-        $service       = $this->getService();
-        $rawData       = $this->getRawData(array('subscription' => $this->_params));
-        $response      = $service->request('subscriptions/' . (int)$id, 'DELETE', $rawData);
+        $service = $this->getService();
+        $rawData = !empty($this->_params)
+            ? $this->getRawData(array('subscription' => $this->_params))
+            : null;
+
+        $response = $service->request('subscriptions/' . (int)$id, 'DELETE', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -477,9 +480,9 @@ class Subscription extends AbstractEntity
     {
         $this->setCancelAtEndOfPeriod(true);
 
-        $service       = $this->getService();
-        $rawData       = $this->getRawData(array('subscription' => $this->_params));
-        $response      = $service->request('subscriptions/' . (int)$id, 'PUT', $rawData);
+        $service = $this->getService();
+        $rawData = $this->getRawData(array('subscription' => $this->_params));
+        $response = $service->request('subscriptions/' . (int)$id, 'PUT', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -515,7 +518,7 @@ class Subscription extends AbstractEntity
             $params['preserve_balance'] = $preserveBalance;
         }
 
-        $response      = $service->request('subscriptions/' . (int)$id . '/reactivate', 'PUT', '', $params);
+        $response = $service->request('subscriptions/' . (int)$id . '/reactivate', 'PUT', '', $params);
         $responseArray = $this->getResponseArray($response);
 
         $code = $response->getStatusCode();
@@ -553,8 +556,8 @@ class Subscription extends AbstractEntity
      */
     public function resetBalance($subscriptionId)
     {
-        $service       = $this->getService();
-        $response      = $service->request('subscriptions/' . (int)$subscriptionId . '/reset_balance', 'GET');
+        $service = $this->getService();
+        $response = $service->request('subscriptions/' . (int)$subscriptionId . '/reset_balance', 'GET');
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -578,9 +581,9 @@ class Subscription extends AbstractEntity
      */
     public function update($id)
     {
-        $service       = $this->getService();
-        $rawData       = $this->getRawData(array('subscription' => $this->_params));
-        $response      = $service->request('subscriptions/' . (int)$id, 'PUT', $rawData);
+        $service = $this->getService();
+        $rawData = $this->getRawData(array('subscription' => $this->_params));
+        $response = $service->request('subscriptions/' . (int)$id, 'PUT', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -616,9 +619,9 @@ class Subscription extends AbstractEntity
      */
     public function migrate($subscriptionId)
     {
-        $service       = $this->getService();
-        $rawData       = $this->getRawData(array('migration' => $this->_params));
-        $response      = $service->request('subscriptions/' . (int) $subscriptionId . '/migrations', 'POST', $rawData);
+        $service = $this->getService();
+        $rawData = $this->getRawData(array('migration' => $this->_params));
+        $response = $service->request('subscriptions/' . (int)$subscriptionId . '/migrations', 'POST', $rawData);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -641,8 +644,8 @@ class Subscription extends AbstractEntity
      */
     public function listSubscriptions()
     {
-        $service       = $this->getService();
-        $response      = $service->request('subscriptions', 'GET', NULL, $this->_params);
+        $service = $this->getService();
+        $response = $service->request('subscriptions', 'GET', NULL, $this->_params);
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
@@ -664,8 +667,8 @@ class Subscription extends AbstractEntity
      */
     public function listByCustomer($customerId)
     {
-        $service       = $this->getService();
-        $response      = $service->request('customers/' . (int)$customerId . '/subscriptions', 'GET');
+        $service = $this->getService();
+        $response = $service->request('customers/' . (int)$customerId . '/subscriptions', 'GET');
         $responseArray = $this->getResponseArray($response);
 
         if (!$this->isError()) {
