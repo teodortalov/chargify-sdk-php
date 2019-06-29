@@ -49,6 +49,7 @@ class Crucial_Service_Chargify_SubscriptionTest extends PHPUnit_Framework_TestCa
         // check there wasn't an error
         $this->assertFalse($subscription->isError(), '$subscription has an error');
         $this->assertEquals(201, $response->getStatusCode(), 'Expected status code 201');
+        $this->assertType('array', $subscription->toArray(), 'Expected an array');
 
         // check for a couple of attributes on the $subscription object
         $this->assertNotEmpty($subscription['id'], '$subscription["id"] was empty');
